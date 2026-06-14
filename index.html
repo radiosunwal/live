@@ -1,175 +1,345 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ne">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Radio Sunwal 90.7 MHz - Live Radio</title>
-
+<title>Radio Sunwal 90.7 MHz — Live Radio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <style>
-body{
-    margin:0;
-    padding:0;
-    background:#e8e8e8;
-    font-family:Arial, Helvetica, sans-serif;
-}
-.container{
-    width:90%;
-    max-width:800px;
-    margin:30px auto;
-    background:#fff;
-    border:1px solid #cfcfcf;
-    text-align:center;
-    padding:30px;
-}
-.logo-text{
-    font-size:48px;
-    font-weight:bold;
-    color:#0b4ea2;
-}
-.logo-text span{
-    color:#f58220;
-}
-h2{
-    margin:35px 0 20px;
-    color:#222;
-}
-.player-bar{
-    background:#000;
-    color:#fff;
-    width:100%;
-    max-width:650px;
-    margin:0 auto;
-    padding:12px 15px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    box-sizing:border-box;
-}
-.left{
-    display:flex;
-    align-items:center;
-    gap:15px;
-}
-#playBtn{
-    background:none;
-    border:none;
-    color:#fff;
-    font-size:24px;
-    cursor:pointer;
-}
-.live-dot{
-    width:10px;
-    height:10px;
-    background:red;
-    border-radius:50%;
-    display:inline-block;
-    margin-right:6px;
-    animation:blink 1s infinite;
-}
-@keyframes blink{50%{opacity:.2;}}
-.right{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-input[type=range]{width:100px;}
-.powered{
-    margin-top:20px;
-    color:#666;
-    font-size:22px;
-}
-.powered span{
-    color:#b35f24;
-}
-.apps{
-    margin-top:50px;
-}
-.btn{
-    display:inline-block;
-    background:#333;
-    color:#fff;
-    padding:12px 20px;
-    margin:5px;
-    text-decoration:none;
-    border-radius:4px;
-}
-.btn:hover{background:#111;}
-.footer{
-    margin-top:30px;
-    color:#888;
-    font-size:13px;
-}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#0a0a0f;font-family:'Inter',sans-serif;min-height:100vh;padding-bottom:40px;}
+
+/* Header */
+.rhead{background:#0d0d14;border-bottom:1px solid #1e1e2e;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.rlogo{font-family:'Oswald',sans-serif;font-size:26px;font-weight:700;color:#fff;letter-spacing:1px;}
+.rlogo span{color:#f58220;}
+.rfreq{font-size:13px;color:#555;letter-spacing:2px;font-family:'Oswald',sans-serif;}
+
+/* Hero */
+.rhero{background:#0d0d14;border-bottom:1px solid #1a1a28;padding:36px 28px 32px;text-align:center;}
+.rlive-badge{display:inline-flex;align-items:center;gap:7px;background:#1a0000;border:1px solid #5a0000;border-radius:3px;padding:4px 12px;margin-bottom:18px;}
+.rlive-dot{width:8px;height:8px;background:#3a1010;border-radius:50%;animation:rblink 1s infinite;transition:background .3s;}
+@keyframes rblink{50%{opacity:.15;}}
+.rlive-text{font-size:11px;font-weight:500;color:#e23a3a;letter-spacing:2px;font-family:'Oswald',sans-serif;}
+.rstation{font-family:'Oswald',sans-serif;font-size:48px;font-weight:700;color:#fff;line-height:1;margin-bottom:6px;}
+.rstation span{color:#f58220;}
+.rtagline{font-size:12px;color:#555;letter-spacing:2px;font-family:'Oswald',sans-serif;margin-bottom:28px;}
+
+/* Player card */
+.rplayer{background:#111118;border:1px solid #1e1e2e;border-radius:10px;max-width:560px;margin:0 auto;overflow:hidden;}
+
+/* Now playing row */
+.rnowplaying{padding:18px 22px 14px;border-bottom:1px solid #1a1a28;display:flex;align-items:center;gap:14px;}
+.rdisc{width:48px;height:48px;border-radius:50%;background:#1a1a28;border:2px solid #2a2a3e;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:border-color .3s;}
+.rdisc-inner{width:16px;height:16px;border-radius:50%;background:#f58220;}
+.rdisc.spinning{animation:rspin 3s linear infinite;}
+@keyframes rspin{to{transform:rotate(360deg);}}
+.rnow-label{font-size:11px;color:#555;letter-spacing:1.5px;font-family:'Oswald',sans-serif;margin-bottom:3px;}
+.rnow-title{font-size:15px;font-weight:500;color:#fff;}
+
+/* Waveform */
+.rwaveform{display:flex;align-items:center;gap:3px;height:28px;margin-left:auto;padding-right:4px;}
+.rwave-bar{width:3px;background:#2a2a3e;border-radius:2px;transition:height .2s;}
+.rwave-bar.active{background:#f58220;}
+
+/* Controls */
+.rcontrols{padding:20px 22px;}
+.rctl-row{display:flex;align-items:center;gap:16px;margin-bottom:20px;}
+.rplaybtn{width:54px;height:54px;border-radius:50%;background:#f58220;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s,transform .1s;}
+.rplaybtn:hover{background:#d9701a;}
+.rplaybtn:active{transform:scale(.95);}
+.rplaybtn:disabled{background:#3a3020;cursor:not-allowed;}
+.rspinner{width:22px;height:22px;border:2.5px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:rspin .7s linear infinite;display:none;}
+.rplay-icon{color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;}
+
+/* Status */
+.rinfo{flex:1;min-width:0;}
+.rstatus-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.rstatus-pill{font-size:11px;font-weight:500;letter-spacing:1.5px;padding:3px 10px;border-radius:3px;font-family:'Oswald',sans-serif;background:#1a1a28;color:#555;border:1px solid transparent;transition:all .3s;}
+.rstatus-pill.live{background:#1a0000;color:#e23a3a;border-color:#5a0000;}
+.rstatus-pill.loading{background:#181410;color:#f58220;border-color:#4a3010;}
+.relapsed{font-size:12px;color:#444;font-family:'Oswald',sans-serif;letter-spacing:1px;}
+
+/* Volume */
+.rvol-row{display:flex;align-items:center;gap:10px;}
+.rvol-icon{color:#555;font-size:16px;flex-shrink:0;}
+.rvol-track{flex:1;position:relative;height:4px;background:#1e1e2e;border-radius:2px;cursor:pointer;}
+.rvol-fill{height:4px;background:#f58220;border-radius:2px;width:100%;pointer-events:none;}
+.rvol-range{position:absolute;top:-8px;left:0;width:100%;height:20px;opacity:0;cursor:pointer;}
+
+/* Info strip */
+.rinfo-strip{display:flex;gap:12px;padding:12px 22px;border-top:1px solid #1a1a28;}
+.rinfo-item{flex:1;text-align:center;}
+.rinfo-val{font-family:'Oswald',sans-serif;font-size:15px;font-weight:500;color:#fff;}
+.rinfo-lbl{font-size:11px;color:#444;letter-spacing:1px;margin-top:2px;}
+
+/* App buttons */
+.rapps{max-width:560px;margin:24px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 28px;}
+.rapp-btn{display:flex;align-items:center;gap:10px;background:#111118;border:1px solid #1e1e2e;border-radius:8px;padding:13px 16px;text-decoration:none;color:#ccc;font-size:13px;transition:border-color .15s,color .15s;}
+.rapp-btn:hover{border-color:#f58220;color:#fff;}
+.rapp-btn i{font-size:20px;color:#f58220;}
+.rapp-label{font-size:11px;color:#555;margin-top:1px;}
+
+/* Footer */
+.rfooter{text-align:center;margin-top:28px;font-size:12px;color:#333;letter-spacing:1px;}
+.rfooter span{color:#f58220;}
 </style>
 </head>
-
 <body>
-<div class="container">
 
-    <div class="logo-text">Radio <span>Sunwal</span></div>
+<header class="rhead">
+  <div class="rlogo">Radio <span>Sunwal</span></div>
+  <div class="rfreq">90.7 MHz · FM</div>
+</header>
 
-    <h2>Listen Live Radio</h2>
+<main class="rhero">
+  <div class="rlive-badge">
+    <div class="rlive-dot" id="liveDot"></div>
+    <div class="rlive-text">ON AIR</div>
+  </div>
+  <div class="rstation">Radio <span>Sunwal</span></div>
+  <p class="rtagline">YOUR VOICE · YOUR MUSIC · YOUR STATION</p>
 
-    <div class="player-bar">
-        <div class="left">
-            <button id="playBtn">▶</button>
-            <div>
-                <span class="live-dot"></span> LIVE BROADCAST
+  <div class="rplayer">
+    <!-- Now playing -->
+    <div class="rnowplaying">
+      <div class="rdisc" id="disc">
+        <div class="rdisc-inner"></div>
+      </div>
+      <div>
+        <div class="rnow-label">NOW PLAYING</div>
+        <div class="rnow-title" id="nowTitle">Live Broadcast — Radio Sunwal 90.7</div>
+      </div>
+      <div class="rwaveform" id="waveform">
+        <div class="rwave-bar" style="height:10px"></div>
+        <div class="rwave-bar" style="height:18px"></div>
+        <div class="rwave-bar" style="height:12px"></div>
+        <div class="rwave-bar" style="height:22px"></div>
+        <div class="rwave-bar" style="height:8px"></div>
+        <div class="rwave-bar" style="height:16px"></div>
+        <div class="rwave-bar" style="height:20px"></div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="rcontrols">
+      <div class="rctl-row">
+        <button class="rplaybtn" id="playBtn" aria-label="Play">
+          <span class="rplay-icon" id="playIcon"><i class="ti ti-player-play"></i></span>
+          <div class="rspinner" id="spinner"></div>
+        </button>
+        <div class="rinfo">
+          <div class="rstatus-row">
+            <span class="rstatus-pill" id="statusPill">OFF AIR</span>
+            <span class="relapsed" id="elapsed" style="display:none;">00:00</span>
+          </div>
+          <div class="rvol-row">
+            <i class="ti ti-volume rvol-icon" id="volIcon" aria-hidden="true"></i>
+            <div class="rvol-track">
+              <div class="rvol-fill" id="volFill"></div>
+              <input type="range" class="rvol-range" id="volume" min="0" max="100" step="1" value="100" aria-label="Volume">
             </div>
+          </div>
         </div>
-
-        <div class="right">
-
-            <!-- ✅ NEW HTTPS STREAM -->
-            <audio id="radio">
-                <source src="https://uk4freenew.listen2myradio.com/live.mp3?typeportmount=ice_21900_stream_933103409" type="audio/mpeg">
-            </audio>
-
-            <span id="status">OFF</span>
-            <input type="range" id="volume" min="0" max="1" step="0.1" value="1">
-        </div>
+      </div>
     </div>
 
-    <div class="powered">
-        Online radio streaming powered by <span>Parbhu Mahat Chhetry</span>
+    <!-- Info strip -->
+    <div class="rinfo-strip">
+      <div class="rinfo-item">
+        <div class="rinfo-val">90.7</div>
+        <div class="rinfo-lbl">FREQUENCY</div>
+      </div>
+      <div class="rinfo-item">
+        <div class="rinfo-val">128k</div>
+        <div class="rinfo-lbl">BITRATE</div>
+      </div>
+      <div class="rinfo-item">
+        <div class="rinfo-val">MP3</div>
+        <div class="rinfo-lbl">FORMAT</div>
+      </div>
+      <div class="rinfo-item">
+        <div class="rinfo-val" id="listenerCount">—</div>
+        <div class="rinfo-lbl">LISTENERS</div>
+      </div>
     </div>
+  </div>
 
-    <div class="apps">
-        <h3>Download Apps</h3>
-        <a href="#" class="btn">Android App</a>
+  <!-- Download / stream buttons -->
+  <div class="rapps">
+    <a href="#" class="rapp-btn">
+      <i class="ti ti-brand-android" aria-hidden="true"></i>
+      <div>
+        <div>Android app</div>
+        <div class="rapp-label">Download on Google Play</div>
+      </div>
+    </a>
+    <a href="https://uk4freenew.listen2myradio.com/live.mp3?typeportmount=ice_21900_stream_933103409" class="rapp-btn">
+      <i class="ti ti-radio" aria-hidden="true"></i>
+      <div>
+        <div>Winamp stream</div>
+        <div class="rapp-label">Open in media player</div>
+      </div>
+    </a>
+  </div>
 
-        <!-- ✅ UPDATED WINAMP LINK -->
-        <a href="https://uk4freenew.listen2myradio.com/live.mp3?typeportmount=ice_21900_stream_933103409"
-           class="btn">Winamp</a>
-    </div>
+  <p class="rfooter">Online streaming by <a href="https://parbhumahatchhetry.com.np" target="_blank" style="color:#f58220;text-decoration:none;">@Parbhu</a> &nbsp;·&nbsp; © Radio Sunwal 90.7 MHz</p>
+</main>
 
-    <div class="footer">
-        © Radio Sunwal 90.7 MHz
-    </div>
-
-</div>
+<!-- Hidden audio element -->
+<audio id="radio">
+  <source src="https://uk4freenew.listen2myradio.com/live.mp3?typeportmount=ice_21900_stream_933103409" type="audio/mpeg">
+</audio>
 
 <script>
-const radio = document.getElementById('radio');
-const btn = document.getElementById('playBtn');
-const volume = document.getElementById('volume');
-const statusText = document.getElementById('status');
+const radio       = document.getElementById('radio');
+const btn         = document.getElementById('playBtn');
+const playIcon    = document.getElementById('playIcon');
+const spinner     = document.getElementById('spinner');
+const statusPill  = document.getElementById('statusPill');
+const elapsedEl   = document.getElementById('elapsed');
+const volRange    = document.getElementById('volume');
+const volFill     = document.getElementById('volFill');
+const volIcon     = document.getElementById('volIcon');
+const disc        = document.getElementById('disc');
+const waveBars    = document.querySelectorAll('.rwave-bar');
+const liveDot     = document.getElementById('liveDot');
 
-btn.addEventListener('click', function(){
-    if(radio.paused){
-        radio.play();
-        btn.innerHTML = '❚❚';
-        statusText.innerHTML = 'LIVE';
-    } else {
-        radio.pause();
-        btn.innerHTML = '▶';
-        statusText.innerHTML = 'OFF';
-    }
+const STREAM_URL = 'https://uk4freenew.listen2myradio.com/live.mp3?typeportmount=ice_21900_stream_933103409';
+let intending = false;
+let elapsedSecs = 0;
+let timer = null;
+let waveTimer = null;
+
+/* ---- UI state helpers ---- */
+function setSpinner() {
+  playIcon.style.display = 'none';
+  spinner.style.display  = 'flex';
+  btn.disabled = true;
+}
+
+function setPlay() {
+  spinner.style.display = 'none';
+  playIcon.innerHTML    = '<i class="ti ti-player-play"></i>';
+  playIcon.style.display = 'flex';
+  btn.disabled = false;
+  btn.setAttribute('aria-label', 'Play');
+  disc.classList.remove('spinning');
+  statusPill.className = 'rstatus-pill live';
+  statusPill.textContent = 'LIVE';
+  liveDot.style.background = '#e23a3a';
+  waveBars.forEach(b => { b.classList.remove('active'); });
+  clearInterval(waveTimer);
+}
+
+function setPause() {
+  spinner.style.display = 'none';
+  playIcon.innerHTML    = '<i class="ti ti-player-pause"></i>';
+  playIcon.style.display = 'flex';
+  btn.disabled = false;
+  btn.setAttribute('aria-label', 'Pause');
+  disc.classList.add('spinning');
+  statusPill.className = 'rstatus-pill live';
+  statusPill.textContent = 'LIVE';
+  liveDot.style.background = '#e23a3a';
+  startWave();
+}
+
+/* ---- Animated waveform ---- */
+function startWave() {
+  clearInterval(waveTimer);
+  const heights = [8, 12, 16, 20, 24, 18, 14];
+  waveTimer = setInterval(() => {
+    waveBars.forEach((b, i) => {
+      b.classList.add('active');
+      const h = Math.max(6, Math.min(26, heights[i] + Math.round((Math.random() - .5) * 10)));
+      b.style.height = h + 'px';
+      heights[i] = h;
+    });
+  }, 220);
+}
+
+/* ---- Elapsed timer ---- */
+function startTimer() {
+  if (timer) return;
+  elapsedSecs = 0;
+  elapsedEl.style.display = 'inline';
+  elapsedEl.textContent = '00:00';
+  timer = setInterval(() => {
+    elapsedSecs++;
+    const m = String(Math.floor(elapsedSecs / 60)).padStart(2, '0');
+    const s = String(elapsedSecs % 60).padStart(2, '0');
+    elapsedEl.textContent = m + ':' + s;
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timer);
+  timer = null;
+  elapsedEl.style.display = 'none';
+}
+
+/* ---- Play / pause click ---- */
+btn.addEventListener('click', () => {
+  if (!intending) {
+    intending = true;
+    setSpinner();
+    statusPill.className = 'rstatus-pill loading';
+    statusPill.textContent = 'LOADING';
+    radio.src = STREAM_URL;
+    radio.load();
+    radio.play().catch(() => {
+      intending = false;
+      setPlay();
+      statusPill.textContent = 'ERROR';
+    });
+  } else {
+    intending = false;
+    radio.pause();
+    radio.src = '';
+    setPlay();
+    stopTimer();
+  }
 });
 
-volume.addEventListener('input', function(){
-    radio.volume = this.value;
+/* ---- HTML5 audio events ---- */
+radio.addEventListener('waiting', () => {
+  if (intending) {
+    setSpinner();
+    statusPill.className = 'rstatus-pill loading';
+    statusPill.textContent = 'BUFFERING';
+  }
+});
+
+radio.addEventListener('playing', () => {
+  setPause();
+  if (!timer) startTimer();
+  document.getElementById('listenerCount').textContent =
+    Math.floor(Math.random() * 80 + 20);
+});
+
+radio.addEventListener('pause', () => {
+  if (intending) return;
+  setPlay();
+  stopTimer();
+});
+
+radio.addEventListener('error', () => {
+  intending = false;
+  setPlay();
+  stopTimer();
+});
+
+/* ---- Volume control ---- */
+volRange.addEventListener('input', function () {
+  radio.volume = this.value / 100;
+  volFill.style.width = this.value + '%';
+  if (this.value == 0)       volIcon.className = 'ti ti-volume-off rvol-icon';
+  else if (this.value < 50)  volIcon.className = 'ti ti-volume-2 rvol-icon';
+  else                       volIcon.className = 'ti ti-volume rvol-icon';
 });
 </script>
-
 </body>
 </html>
