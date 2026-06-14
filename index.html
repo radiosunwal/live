@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Radio Sunwal 90.7 MHz - Live Radio</title>
+
 <style>
 body{
     margin:0;
@@ -20,9 +20,6 @@ body{
     border:1px solid #cfcfcf;
     text-align:center;
     padding:30px;
-}
-.logo img{
-    max-width:280px;
 }
 .logo-text{
     font-size:48px;
@@ -60,10 +57,6 @@ h2{
     font-size:24px;
     cursor:pointer;
 }
-.live-text{
-    font-size:14px;
-    color:#fff;
-}
 .live-dot{
     width:10px;
     height:10px;
@@ -73,17 +66,13 @@ h2{
     margin-right:6px;
     animation:blink 1s infinite;
 }
-@keyframes blink{
-    50%{opacity:.2;}
-}
+@keyframes blink{50%{opacity:.2;}}
 .right{
     display:flex;
     align-items:center;
     gap:10px;
 }
-input[type=range]{
-    width:100px;
-}
+input[type=range]{width:100px;}
 .powered{
     margin-top:20px;
     color:#666;
@@ -95,9 +84,6 @@ input[type=range]{
 .apps{
     margin-top:50px;
 }
-.apps h3{
-    margin-bottom:20px;
-}
 .btn{
     display:inline-block;
     background:#333;
@@ -107,127 +93,83 @@ input[type=range]{
     text-decoration:none;
     border-radius:4px;
 }
-.btn:hover{
-    background:#111;
-}
+.btn:hover{background:#111;}
 .footer{
     margin-top:30px;
     color:#888;
     font-size:13px;
 }
-
-/* ===== MOBILE RESPONSIVE ===== */
-@media (max-width: 480px) {
-    .container{
-        width:100%;
-        margin:0;
-        padding:20px 15px;
-        border:none;
-        min-height:100vh;
-        box-sizing:border-box;
-    }
-    .logo-text{
-        font-size:32px;
-    }
-    h2{
-        font-size:18px;
-        margin:24px 0 16px;
-    }
-    .player-bar{
-        flex-direction:column;
-        gap:12px;
-        padding:16px;
-    }
-    .left{
-        width:100%;
-        justify-content:center;
-    }
-    .right{
-        width:100%;
-        justify-content:center;
-    }
-    input[type=range]{
-        width:130px;
-    }
-    .powered{
-        font-size:16px;
-        margin-top:16px;
-    }
-    .apps{
-        margin-top:36px;
-    }
-    .btn{
-        display:block;
-        width:100%;
-        max-width:260px;
-        margin:8px auto;
-        box-sizing:border-box;
-        text-align:center;
-    }
-}
 </style>
 </head>
+
 <body>
 <div class="container">
-    <div class="logo">
-        <!-- Replace with your logo -->
-        <div class="logo-text">Radio <span>Sunwal</span></div>
-    </div>
+
+    <div class="logo-text">Radio <span>Sunwal</span></div>
+
     <h2>Listen Live Radio</h2>
+
     <div class="player-bar">
         <div class="left">
             <button id="playBtn">▶</button>
-            <div class="live-text">
-                <span class="live-dot"></span>
-                LIVE BROADCAST
+            <div>
+                <span class="live-dot"></span> LIVE BROADCAST
             </div>
         </div>
+
         <div class="right">
+
+            <!-- ✅ NEW HTTPS STREAM -->
             <audio id="radio">
-                <source src="http://109.169.23.84:21900/stream" type="audio/mpeg">
+                <source src="https://uk4freenew.listen2myradio.com/live.mp3?typeportmount=ice_21900_stream_933103409" type="audio/mpeg">
             </audio>
+
             <span id="status">OFF</span>
-            <input type="range"
-                   id="volume"
-                   min="0"
-                   max="1"
-                   step="0.1"
-                   value="1">
+            <input type="range" id="volume" min="0" max="1" step="0.1" value="1">
         </div>
     </div>
+
     <div class="powered">
-        Online radio streaming powered by
-        <span>Parbhu Mahat Chhetry</span>
+        Online radio streaming powered by <span>Parbhu Mahat Chhetry</span>
     </div>
+
     <div class="apps">
         <h3>Download Apps</h3>
         <a href="#" class="btn">Android App</a>
-        <a href="http://109.169.23.84:21900/listen.pls"
+
+        <!-- ✅ UPDATED WINAMP LINK -->
+        <a href="https://uk4freenew.listen2myradio.com/live.mp3?typeportmount=ice_21900_stream_933103409"
            class="btn">Winamp</a>
     </div>
+
     <div class="footer">
         © Radio Sunwal 90.7 MHz
     </div>
+
 </div>
+
 <script>
 const radio = document.getElementById('radio');
 const btn = document.getElementById('playBtn');
 const volume = document.getElementById('volume');
 const statusText = document.getElementById('status');
+
 btn.addEventListener('click', function(){
     if(radio.paused){
         radio.play();
         btn.innerHTML = '❚❚';
         statusText.innerHTML = 'LIVE';
-    }else{
+    } else {
         radio.pause();
         btn.innerHTML = '▶';
-        statusText.innerHTML = 'ON AIR';
+        statusText.innerHTML = 'OFF';
     }
 });
+
 volume.addEventListener('input', function(){
     radio.volume = this.value;
 });
 </script>
+
 </body>
 </html>
